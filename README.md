@@ -3,6 +3,8 @@
 孵化一個 Yosgo Express 輪胎
 
 ```javascript
+import cors from 'cors';
+
 class Product extends CoreRouter {
   index({ request, response }: HandlerType) {
     response.responseStatusHandler.OK('INDEX');
@@ -23,15 +25,9 @@ class Product extends CoreRouter {
 
 const app = new Core();
 app.init({
-  middlewares: [
-    cors(),
-    bodyParser.urlencoded({ extended: true }),
-    bodyParser.json()
-  ]
+  middlewares: [cors()]
 });
 app.routerHandler(productsHandler);
-app.routerHandler(errorsHandler);
-app.routerHandler(requestConsumer);
 listen = app.listen({
   port: 8080,
   success: ({ port }) => console.log(`Listen on port ${port}`)
